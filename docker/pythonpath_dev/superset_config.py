@@ -100,6 +100,10 @@ WEBDRIVER_BASEURL_USER_FRIENDLY = WEBDRIVER_BASEURL
 
 SQLLAB_CTAS_NO_LIMIT = True
 
+TALISMAN_ENABLED = False
+ENABLE_CORS = True
+HTTP_HEADERS={"X-Frame-Options":"ALLOWALL"} 
+
 #
 # Optionally import superset_config_docker.py (which will have been included on
 # the PYTHONPATH) in order to allow for local settings to be overridden
