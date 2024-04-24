@@ -10,20 +10,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0  # Fetch all history for the pull request.
 
-      - name: Sync fork
-        uses: tgymnich/fork-sync@v1.9
-        with:
-          owner: apache
-          repository: superset
-          base: master
-          head: master
-
-      - name: Push changes
-        uses: ad-m/github-push-action@master
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: master
+      - name: Fetch upstream changes
+        run: git fetch upstream
+      
+      - name: Merge upstream changes into master
+        run: git merge upstream/master
+      
+      - name: Push changes to fork
+        run: git push origin master
