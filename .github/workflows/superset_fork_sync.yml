@@ -2,23 +2,18 @@ name: Sync Fork
 
 on:
   schedule:
-    - cron: '0 0 * * *'  # Runs at 00:00 every day, change as necessary
-  workflow_dispatch:  # Allows manual trigger from GitHub Actions UI
+    - cron: '0 0 * * *'
+  workflow_dispatch: # on button click
 
 jobs:
   sync:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0  # Fetch all history for the pull request.
 
-      - name: Fetch upstream changes
-        run: git fetch upstream
-      
-      - name: Merge upstream changes into master
-        run: git merge upstream/master
-      
-      - name: Push changes to fork
-        run: git push origin master
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: tgymnich/fork-sync@v1.8
+        with:
+          owner: apache
+          repo: superset
+          base: master
+          head: master
