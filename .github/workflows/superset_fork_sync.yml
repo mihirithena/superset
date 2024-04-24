@@ -7,11 +7,11 @@ on:
 
 jobs:
   sync:
-
+    permissions: write-all
     runs-on: ubuntu-latest
 
     steps:
-      - uses: tgymnich/fork-sync@v1.8
+      - uses: tgymnich/fork-sync@v1.9
         with:
           owner: apache
           repo: superset
