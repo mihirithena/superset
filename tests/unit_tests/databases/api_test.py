@@ -571,7 +571,6 @@ def test_apply_dynamic_database_filter(
     with app.app_context():
         from superset.daos.database import DatabaseDAO
         from superset.databases.api import DatabaseRestApi
-        from superset.databases.ssh_tunnel.models import SSHTunnel
         from superset.models.core import Database
 
         DatabaseRestApi.datamodel.session = session
@@ -937,7 +936,7 @@ def test_csv_upload(
     reader_mock = mocker.patch.object(CSVReader, "__init__")
     reader_mock.return_value = None
     response = client.post(
-        f"/api/v1/database/1/csv_upload/",
+        "/api/v1/database/1/csv_upload/",
         data=payload,
         content_type="multipart/form-data",
     )
@@ -1074,7 +1073,7 @@ def test_csv_upload_validation(
     _ = mocker.patch.object(UploadCommand, "run")
 
     response = client.post(
-        f"/api/v1/database/1/csv_upload/",
+        "/api/v1/database/1/csv_upload/",
         data=payload,
         content_type="multipart/form-data",
     )
@@ -1093,7 +1092,7 @@ def test_csv_upload_file_size_validation(
     _ = mocker.patch.object(UploadCommand, "run")
     current_app.config["CSV_UPLOAD_MAX_SIZE"] = 5
     response = client.post(
-        f"/api/v1/database/1/csv_upload/",
+        "/api/v1/database/1/csv_upload/",
         data={
             "file": (create_csv_file(), "out.csv"),
             "table_name": "table1",
@@ -1134,7 +1133,7 @@ def test_csv_upload_file_extension_invalid(
     """
     _ = mocker.patch.object(UploadCommand, "run")
     response = client.post(
-        f"/api/v1/database/1/csv_upload/",
+        "/api/v1/database/1/csv_upload/",
         data={
             "file": (create_csv_file(), filename),
             "table_name": "table1",
@@ -1170,7 +1169,7 @@ def test_csv_upload_file_extension_valid(
     """
     _ = mocker.patch.object(UploadCommand, "run")
     response = client.post(
-        f"/api/v1/database/1/csv_upload/",
+        "/api/v1/database/1/csv_upload/",
         data={
             "file": (create_csv_file(), filename),
             "table_name": "table1",
@@ -1279,7 +1278,7 @@ def test_excel_upload(
     reader_mock = mocker.patch.object(ExcelReader, "__init__")
     reader_mock.return_value = None
     response = client.post(
-        f"/api/v1/database/1/excel_upload/",
+        "/api/v1/database/1/excel_upload/",
         data=payload,
         content_type="multipart/form-data",
     )
@@ -1371,7 +1370,7 @@ def test_excel_upload_validation(
     _ = mocker.patch.object(UploadCommand, "run")
 
     response = client.post(
-        f"/api/v1/database/1/excel_upload/",
+        "/api/v1/database/1/excel_upload/",
         data=payload,
         content_type="multipart/form-data",
     )
@@ -1405,7 +1404,7 @@ def test_excel_upload_file_extension_invalid(
     """
     _ = mocker.patch.object(UploadCommand, "run")
     response = client.post(
-        f"/api/v1/database/1/excel_upload/",
+        "/api/v1/database/1/excel_upload/",
         data={
             "file": (create_excel_file(), filename),
             "table_name": "table1",
